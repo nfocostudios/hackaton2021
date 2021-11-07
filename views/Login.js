@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, StyleSheet, Alert } from  'react-native';
+import { View, StyleSheet, Alert, Image } from  'react-native';
 import { Text, Input, Button, Toast, theme, withGalio, GalioProvider  } from 'galio-framework';
 
 const Login = ({ navigation }) => {
@@ -23,6 +23,15 @@ const Login = ({ navigation }) => {
     return (
         <>
         <View style={{ flex: 1, backgroundColor: '#eee', paddingHorizontal: 20, position: 'relative', }}>
+            <View style={styles.titleprincipal}>
+                <Text h5 color="#000" bold style={{textAlign:'center'}}>Bienvenidos a CUIDEMONOS</Text>
+            </View>
+            <View style={styles.container}>
+                <Image
+                    style={{ width: 100, height: 100 }}
+                    source={require('../assets/logo.jpeg')}
+                />
+            </View>
             <View style={styles.title}>
                 <Text h4 color="#000" bold style={{textAlign:'center'}}>Inicia Sesión</Text>
             </View>
@@ -44,7 +53,7 @@ const Login = ({ navigation }) => {
                 password 
                 />
             </View>
-            <View style={{ marginBottom: 30 }}>
+            <View>
                 <Button 
                     uppercase
                     color="info"
@@ -72,13 +81,21 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     title: {
-        marginTop: 90,
+        marginTop: 40,
         marginBottom: 40
+    },
+    titleprincipal: {
+        marginTop: 40
     },
     registrar: {
         marginHorizontal: 0, 
         opacity: 0.6,
-    }
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 30
+      },
 });
 
 export default withGalio(Login);

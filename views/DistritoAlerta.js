@@ -9,7 +9,8 @@ import {
     TouchableHighlight,
     Modal,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    Linking 
   } from 'react-native';
 import {
     Text,
@@ -25,7 +26,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import {Picker} from '@react-native-picker/picker';
 
-const MensajesPredeterminados = () => {
+const DistritoAlerta = () => {
     const [messages, setMessages] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [colores] = useState([
@@ -49,35 +50,21 @@ const MensajesPredeterminados = () => {
 
     const [colorSelected, setColorSelected] = useState('#ff0000');
     const [mensaje, setMensaje] = useState('');
-    const __openModal = () => {
-        setModalVisible(true);
-    }
+
+    const [alto, setAlto] = useState(0)
+    const [medio, setMedio] = useState(0)
+    const [bajo, setBajo] = useState(0)
+    const [distrito, setDistrito] = useState('')
     
     const __addMensaje = () => {
         setModalVisible(false)
-        firestore()
-        .collection('default_messages')
-        .add({
-            title: mensaje,
-            color: colorSelected
-        })
-        .then((resp) => {
-            
-  
-            ToastAndroid.showWithGravityAndOffset(
-                'Agregado correctamente',
-                ToastAndroid.LONG,
-                ToastAndroid.BOTTOM,
-                25,
-                50)
-          });
+    
     }
     
     useEffect(() => {
         const loadData = async () => {
-            // useEffect(() => {
             await firestore()
-                .collection('default_messages')
+                .collection('distritos_alertas')
                 .onSnapshot((querySnapshot) => {
                     const messages = []
                     querySnapshot.forEach((documentSnapshot) => {
@@ -90,38 +77,34 @@ const MensajesPredeterminados = () => {
 
                     setMessages(messages)
                 })
-            // }, []);
 
         }
 
         loadData();
     }, []);
 
+    const __openModal = (item) => {
+        setModalVisible(true);
+
+        setDistrito(item.nombre)
+        setAlto(item.fuerte);
+        setMedio(item.medio);
+        setBajo(item.bajo);
+        console.log(item);
+    }
+
     
     return (
         <>
             <View style={{ flex: 1, backgroundColor: '#eee', position: 'relative' }}>
                 { messages && messages.map((item) => 
-                    <TouchableHighlight style={[styles.item, {backgroundColor: item.color}]} key = {item.key}>
+                    <TouchableHighlight style={[styles.item]} key = {item.key}  onPress={ () => __openModal(item)}>
                         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                            <Text h6 style={{color: '#000'}}>{item.title}</Text>
-
+                            <Text p style={{color: '#000'}}>{item.nombre}</Text>
+                            <Text p>{item.cantidad}</Text>
                         </View>
                     </TouchableHighlight>
                 )}
-
-            </View>
-
-            <View>
-                <Button
-                    uppercase
-                    size="large"
-                    color="info"
-                    style={styles.registrar}
-                    onPress={__openModal}
-                >
-                    Agregar
-                </Button>
 
             </View>
 
@@ -135,27 +118,23 @@ const MensajesPredeterminados = () => {
             >
                 <View style={styles.modalAlert}>
                     <View style={styles.modalAlertContent}>
-                        <Text h6 bold center>Crear mensaje</Text>
-                        <Input 
-                            placeholder="Mensaje" 
-                            style={{ borderColor: theme.COLORS.INFO }} 
-                            onChangeText={text => {
-                                setMensaje(text)
-                            }}
-                        />
+                        <Text h6 bold center style={{marginBottom: 20}}>{distrito}</Text>
+                        
+                        <Block style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <Block style={{ height: 15, width: '80%', backgroundColor: 'red', borderRadius: 10, marginRight: 10 }}></Block>
 
-                        <Picker
-                            selectedValue={colorSelected}
-                            style={styles.select}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setColorSelected(itemValue)
-                            }>
-                            <Picker.Item label="Seleccione" value="" />
-                            {colores.map((item, key) => (
-                            <Picker.Item key={key} label={item.name} value={item.code} />
-                            ))}
-                        </Picker>
+                            <Text>{alto}</Text>
+                        </Block>
+                        <Block style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <Block style={{ height: 15, width: '50%', backgroundColor: '#ff8c00', borderRadius: 10, marginRight: 10 }}></Block>
 
+                            <Text>{medio}</Text>
+                        </Block>
+                        <Block style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 50 }}>
+                            <Block style={{ height: 15, width: '20%', backgroundColor: '#ffff00', borderRadius: 10, marginRight: 10 }}></Block>
+
+                            <Text>{bajo}</Text>
+                        </Block>
                         <Button
                             uppercase
                             size="small"
@@ -164,7 +143,7 @@ const MensajesPredeterminados = () => {
                             style={styles.registrar}
                             onPress={__addMensaje}
                         >
-                            Agregar
+                            Cerrar
                         </Button>
                     </View>
                 </View>
@@ -204,4 +183,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default MensajesPredeterminados;
+export default DistritoAlerta;

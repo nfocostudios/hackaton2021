@@ -9,7 +9,8 @@ import {
     TouchableHighlight,
     Modal,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    Linking 
   } from 'react-native';
 import {
     Text,
@@ -25,7 +26,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import {Picker} from '@react-native-picker/picker';
 
-const MensajesPredeterminados = () => {
+const ContactoEmergencia = () => {
     const [messages, setMessages] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [colores] = useState([
@@ -75,9 +76,8 @@ const MensajesPredeterminados = () => {
     
     useEffect(() => {
         const loadData = async () => {
-            // useEffect(() => {
             await firestore()
-                .collection('default_messages')
+                .collection('contactos')
                 .onSnapshot((querySnapshot) => {
                     const messages = []
                     querySnapshot.forEach((documentSnapshot) => {
@@ -90,7 +90,6 @@ const MensajesPredeterminados = () => {
 
                     setMessages(messages)
                 })
-            // }, []);
 
         }
 
@@ -102,73 +101,15 @@ const MensajesPredeterminados = () => {
         <>
             <View style={{ flex: 1, backgroundColor: '#eee', position: 'relative' }}>
                 { messages && messages.map((item) => 
-                    <TouchableHighlight style={[styles.item, {backgroundColor: item.color}]} key = {item.key}>
-                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                            <Text h6 style={{color: '#000'}}>{item.title}</Text>
-
+                    <TouchableHighlight style={[styles.item]} key = {item.key}  onPress={() => Linking.openURL(`tel:${item.telefono}`)}>
+                        <View>
+                            <Text h6 style={{color: '#000'}}>{item.nombre}</Text>
+                            <Text p>{item.telefono}</Text>
                         </View>
                     </TouchableHighlight>
                 )}
 
             </View>
-
-            <View>
-                <Button
-                    uppercase
-                    size="large"
-                    color="info"
-                    style={styles.registrar}
-                    onPress={__openModal}
-                >
-                    Agregar
-                </Button>
-
-            </View>
-
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                }}
-            >
-                <View style={styles.modalAlert}>
-                    <View style={styles.modalAlertContent}>
-                        <Text h6 bold center>Crear mensaje</Text>
-                        <Input 
-                            placeholder="Mensaje" 
-                            style={{ borderColor: theme.COLORS.INFO }} 
-                            onChangeText={text => {
-                                setMensaje(text)
-                            }}
-                        />
-
-                        <Picker
-                            selectedValue={colorSelected}
-                            style={styles.select}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setColorSelected(itemValue)
-                            }>
-                            <Picker.Item label="Seleccione" value="" />
-                            {colores.map((item, key) => (
-                            <Picker.Item key={key} label={item.name} value={item.code} />
-                            ))}
-                        </Picker>
-
-                        <Button
-                            uppercase
-                            size="small"
-                            
-                            color="info"
-                            style={styles.registrar}
-                            onPress={__addMensaje}
-                        >
-                            Agregar
-                        </Button>
-                    </View>
-                </View>
-            </Modal>
         </>
     );
 }
@@ -204,4 +145,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default MensajesPredeterminados;
+export default ContactoEmergencia;

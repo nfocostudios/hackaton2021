@@ -16,13 +16,13 @@ import DatePicker from 'react-native-date-picker'
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-const Registrar = ({navigation}) => {
+const DatosPersonales = ({navigation}) => {
   const [isShow, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [image, setImage] = useState(
-    'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
+    'https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg',
   );
 
   const [date, setDate] = useState(new Date())
@@ -156,7 +156,7 @@ const Registrar = ({navigation}) => {
             color="info"
             style={styles.registrar}
             onPress={__registrar}
-        >Registrar</Button>
+        >Guardar Cambios</Button>
       </View>
 
       <DatePicker
@@ -227,4 +227,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withGalio(Registrar);
+export default withGalio(DatosPersonales);

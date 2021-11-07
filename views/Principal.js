@@ -94,12 +94,12 @@ const Principal = ({navigation}) => {
         </Block>
         <ScrollView>
         <Block style={styles.contentMenu}>
-            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('Login')}>
+            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('DatosPersonales')}>
                 
                 <Text p bold center>Datos personales</Text>
             </TouchableHighlight>
             
-            <TouchableHighlight style={styles.blockmenu}>
+            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('ContactoEmergencia')}>
                 
                 <Text p bold center>Contactos de emergencia</Text>
             </TouchableHighlight>
@@ -111,26 +111,26 @@ const Principal = ({navigation}) => {
                 <Text p bold center>Mensajes predeterminados</Text>
             </TouchableHighlight>
             
-            <TouchableHighlight style={styles.blockmenu}>
+            <TouchableHighlight style={styles.blockmenu}  onPress={() => navigation.navigate('DistritoAlerta')}>
                 
                 <Text p bold center>Distritos con mas alertas</Text>
             </TouchableHighlight>
         </Block>
 
         <Block style={styles.contentMenu}>
-            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('Login')}>
+            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('MapaCalor')}>
                 
                 <Text p bold center>Mapa de calor</Text>
             </TouchableHighlight>
             
-            <TouchableHighlight style={styles.blockmenu}>
+            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('EstamosContigo')}>
                 
                 <Text p bold center>¡Estamos contigo!</Text>
             </TouchableHighlight>
         </Block>
 
         <Block style={styles.contentMenu}>
-            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('Login')}>
+            <TouchableHighlight style={styles.blockmenu} onPress={() => navigation.navigate('Vistazo')}>
                 
                 <Text p bold center>Dale un vistazo a todo lo que puedes hacer</Text>
             </TouchableHighlight>
