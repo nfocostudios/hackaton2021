@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "331048578217",
+    "firebase_url": "https://proyectbutton-default-rtdb.firebaseio.com",
+    "project_id": "proyectbutton",
+    "storage_bucket": "proyectbutton.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331048578217:android:d3b65118d5fa8f4f250db8",
+        "android_client_info": {
+          "package_name": "com.apphackatoncito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331048578217-31h1930kbrn3a1d3vmh01230hfl19ld3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnMMvLjwplljRy5URsP3aBXCeRtFNEAQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331048578217-31h1930kbrn3a1d3vmh01230hfl19ld3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
